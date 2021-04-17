@@ -1,0 +1,29 @@
+.main {
+    margin-top: 30px;
+    margin-left: 40px;
+}
+.output_en::first-letter {
+    text-transform: uppercase;
+}
+
+body {
+    top: 0 !important;
+  }
+.skiptranslate {
+  display: none;
+  height: 0;
+}
+
+.goog-tooltip {
+  display: none !important;
+}
+
+.input-text {
+  border: none;
+  font-size: 16px;
+  background-color: rgb(243, 255, 190);
+  outline: none;
+}
+.hidden {
+  visibility: hidden;
+}
