@@ -20,7 +20,7 @@ const verbs = [
   { v1: 'answer', v2: 'answered' },
   { v1: 'give', v2: 'gave' },
   { v1: 'take', v2: 'took' },
-  { v1: 'hope', v2: 'hope' },
+  { v1: 'hope', v2: 'hoped' },
   { v1: 'speak', v2: 'spoke' },
   { v1: 'travel', v2: 'traveled' },
   { v1: 'write', v2: 'wrote' },
@@ -31,7 +31,7 @@ const verbs = [
   { v1: 'spend', v2: 'spent' },
   { v1: 'accompany', v2: 'accompanied', v3: 'accompanies' },
   { v1: 'promise', v2: 'promised' },
-  { v1: 'have rest', v2: 'hed rest', v3: 'has rest' },
+  { v1: 'have rest', v2: 'had rest', v3: 'has rest' },
   { v1: 'get', v2: 'got' },
   { v1: 'hide', v2: 'hid' }
 ]
