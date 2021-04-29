@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Название проекта</title>
-    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./css/general.css">
-    <link rel="stylesheet" href="./css/style.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+  <title>Translation jam</title>
 
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/main.css">
+</head>
 <body>
 
-    <div class="main">
-        <div class="output_en" id="google_translate_element"></div>
-        <button id="btnCheckWord">Проверить</button>
-        <button id="btnNewWord" data-google-lang="ru">Новое слово</button>
-        <input id='input' type="text" readonly='readonly' class="input-text">
+<div class="root">
+  <div class="card">
+    <div class="text" id="textToTranslate"></div>
+    <div class="text" id="textToCheck"></div>
+    <div class="text" id="result"></div>
+    <div class="suggestion">
+      <label>
+        <input class="input" type="text" id="suggestionInput" autofocus>
+      </label>
     </div>
+    <div class="buttons">
+      <button class="check" id="checkButton">Check</button>
+      <button class="next" id="nextButton">Next</button>
+    </div>
+  </div>
+</div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="./google-translate.js"></script>
-    <script src="./gt1.js"></script>
-    <script src="./js/parts.js"></script>
-    <script src="./js/schema.js"></script>
-    <script src="./js/main.js"></script>
-
+<script src="js/main.js" type="module"></script>
 </body>
-
 </html>

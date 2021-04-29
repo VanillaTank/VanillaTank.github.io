@@ -1,38 +1,99 @@
-const outputEn = document.querySelector('.output_en');
-const btnNewWord = document.querySelector('#btnNewWord');
-const btnCheckWord = document.querySelector('#btnCheckWord');
-const el = document.getElementById('input');
+import {phraseGeneratorService} from './phraseGeneratorService.js';
+import {translationService} from './translationService.js';
+import {stringService} from './stringService.js';
 
-const getRandomWord = (arr, min = 0, max = 0) => {
-  if (max === 0) { return Math.floor(Math.random() * arr.length) }
-  else {
-    var offset = min;
-    var range = (max - min) + 1;
-    var randomNumber = Math.floor(Math.random() * range) + offset;
-    return randomNumber;
+let textToTranslateElement;
+let textToCheckElement;
+let resultElement;
+let checkButtonElement;
+let nextButtonElement;
+let inputElement;
+
+let currentPhrase;
+let currentPhraseTranslation;
+let loading = false;
+
+document.addEventListener('DOMContentLoaded', () => {
+  textToTranslateElement = document.getElementById('textToTranslate');
+  textToCheckElement = document.getElementById('textToCheck');
+  resultElement = document.getElementById('result');
+  checkButtonElement = document.getElementById('checkButton');
+  nextButtonElement = document.getElementById('nextButton');
+  inputElement = document.getElementById('suggestionInput');
+
+  nextButtonElement.onclick = () => generateNewPhrase();
+  checkButtonElement.onclick = () => checkPhrase();
+
+  generateNewPhrase();
+});
+
+function generateNewPhrase() {
+  if (loading) {
+    return;
   }
+
+  currentPhrase = phraseGeneratorService.generate()
+    .trim()
+    .replace(/\s+(?= )/g, '');
+  textToTranslateElement.innerHTML = currentPhrase;
+
+  checkButtonElement.classList.remove('hidden');
+  checkButtonElement.classList.add('loading');
+  nextButtonElement.classList.add('hidden');
+  textToCheckElement.classList.add('hidden');
+  resultElement.classList.add('hidden');
+  inputElement.value = '';
+  inputElement.focus();
+
+  loading = true;
+  translationService.translate(currentPhrase)
+    .then((translation) => {
+      loading = false;
+      currentPhraseTranslation = translation;
+      checkButtonElement.classList.remove('loading');
+    }, (err) => {
+      loading = false;
+      console.warn(err);
+      alert("Не могу получить перевод. Что-то пошло не так.")
+      checkButtonElement.classList.remove('loading');
+      checkButtonElement.classList.add('hidden');
+      nextButtonElement.classList.remove('hidden');
+    });
 }
 
+function checkPhrase() {
+  if (loading) {
+    return;
+  }
+  let suggestion = (inputElement.value || '')
+    .replace(/[^\w\s]|_/g, "")
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLocaleLowerCase();
 
-let startText = schema[Math.floor(Math.random() * schema.length)].text();
-outputEn.textContent = startText
-el.value = startText;
-el.classList.add('hidden');
+  let translation = currentPhraseTranslation
+    .replace(/[^\w\s]|_/g, "")
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLocaleLowerCase();
 
+  // Удаляем лишние символы, чтобы сравнить варианты.
 
+  if (suggestion === translation) {
+    resultElement.innerHTML = "Успех!";
+  } else {
+    let levDistance = stringService.levenshteinDistance(suggestion, translation);
+    if (levDistance <= 1) {
+      resultElement.innerHTML = "Опечатка";
+    } else if (levDistance <= 3) {
+      resultElement.innerHTML = "Много ошибок";
+    } else {
+      resultElement.innerHTML = "Полный провал!";
+    }
+  }
 
-btnNewWord.addEventListener('click', () => {
-  outputEn.classList.add('animate')
-  let randomSchema = Math.floor(Math.random() * schema.length)
-  let enText = schema[randomSchema].text();
-  outputEn.textContent = enText;
-  el.value = enText;
-  el.classList.add('hidden');
-  outputEn.classList.remove('animate')
-})
-
-//анимировать ключевыми кадрами затухание и появление
-
-btnCheckWord.addEventListener('click', () => {
-  el.classList.remove('hidden')
-})
+  textToCheckElement.classList.remove('hidden');
+  resultElement.classList.remove('hidden');
+  checkButtonElement.classList.add('hidden');
+  nextButtonElement.classList.remove('hidden');
+}
