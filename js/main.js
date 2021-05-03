@@ -35,7 +35,6 @@ function generateNewPhrase() {
   currentPhrase = phraseGeneratorService.generate()
     .trim()
     .replace(/\s+(?= )/g, '');
-  textToTranslateElement.innerHTML = currentPhrase;
 
   checkButtonElement.classList.remove('hidden');
   checkButtonElement.classList.add('loading');
@@ -51,6 +50,7 @@ function generateNewPhrase() {
       loading = false;
       currentPhraseTranslation = translation;
       checkButtonElement.classList.remove('loading');
+      textToTranslateElement.innerHTML = translation;
     }, (err) => {
       loading = false;
       console.warn(err);
