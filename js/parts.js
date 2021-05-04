@@ -30,10 +30,9 @@ const verbs = [
     { v1: 'have rest', v2: 'hed rest', v3: 'has rest' },
     { v1: 'get', v2: 'got' },
     { v1: 'hide', v2: 'hid' },
-
-    { v1: 'buy', v2: 'bought', v3: 'buies' },
+    { v1: 'buy', v2: 'bought', v3: 'buys' },
     { v1: 'sell', v2: 'sold' },
-    { v1: 'pay', v2: 'paid', v3: 'paies' },
+    { v1: 'pay', v2: 'paid', v3: 'pays' },
     { v1: 'make', v2: 'made' },
     { v1: 'choose', v2: 'chose' },
     { v1: 'try', v2: 'tried', v3: 'tries' },
@@ -47,3 +46,5 @@ const verbs = [
 ];
 const pronoun = ["I", 'you', 'we', 'they', 'he', 'she'];
 const askWord = ['Will', "Do", "Does", "Did"];
+
+export {verbs, pronoun, askWord};
