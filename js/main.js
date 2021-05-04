@@ -1,6 +1,5 @@
 import schema from "./schema.js";
 
-
 window.onload = init;
 
 //------------------------------------------------------------
@@ -26,11 +25,8 @@ function init () {
     outputEn.classList.remove('animate')
   })
 
-//анимировать ключевыми кадрами затухание и появление
-
   btnCheckWord.addEventListener('click', () => {
     el.classList.remove('hidden')
   })
-
 }
 
