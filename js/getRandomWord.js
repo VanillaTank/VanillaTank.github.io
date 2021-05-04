@@ -7,4 +7,4 @@ function getRandomWord(arr, min=0,max=0) {
     }
 }
 
-export default getRandomWord
+export default getRandomWord;

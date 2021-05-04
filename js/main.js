@@ -1,4 +1,5 @@
 import schema from "./schema.js";
+import phraseGenerate from "./phraseGenerate.js"
 
 window.onload = init;
 
@@ -9,24 +10,18 @@ function init () {
   const btnCheckWord = document.querySelector('#btnCheckWord');
   const el = document.getElementById('input');
 
-
-  let startText = schema[Math.floor(Math.random() * schema.length)]();
-  outputEn.textContent = startText
-  el.value = startText;
-  el.classList.add('hidden');
-
-  btnNewWord.addEventListener('click', () => {
-    outputEn.classList.add('animate')
-    let randomSchema = Math.floor(Math.random() * schema.length)
-    let enText = schema[randomSchema]();
-    outputEn.textContent = enText;
-    el.value = enText;
-    el.classList.add('hidden');
-    outputEn.classList.remove('animate')
-  })
-
+  createNewText ();
+  btnNewWord.addEventListener('click', createNewText);
   btnCheckWord.addEventListener('click', () => {
     el.classList.remove('hidden')
   })
+
+  function createNewText () {
+    let enText = phraseGenerate();
+    outputEn.textContent = enText;
+    el.value = enText;
+    el.classList.add('hidden');
+  }
 }
+
 
