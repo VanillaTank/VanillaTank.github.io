@@ -1,5 +1,6 @@
 import phraseGenerate from "./phraseGenerate.js"
 import allEngSchema from "./all-eng-schema.js";
+import createNewData from "./create.js"
 
 window.onload = init;
 
@@ -12,13 +13,15 @@ function init () {
 
   const outAllWords = document.querySelector('.out_allWords');
   const btnAllWords = document.querySelector('.btnAllWords');
+  const createBnt = document.querySelector('.createBnt');
 
   createNewText ();
   btnNewWord.addEventListener('click', createNewText);
   btnCheckWord.addEventListener('click', () => {
     el.classList.remove('hidden')
   })
-  btnAllWords.addEventListener('click', creatAllPhrases)
+  btnAllWords.addEventListener('click', creatAllPhrases);
+  createBnt.addEventListener('click', createNewData)
 
   function createNewText () {
     let enText = phraseGenerate();
@@ -39,7 +42,6 @@ function init () {
       })
     }
   }
-
 }
 
 
