@@ -1,5 +1,5 @@
-import schema from "./schema.js";
 import phraseGenerate from "./phraseGenerate.js"
+import allEngSchema from "./all-eng-schema.js";
 
 window.onload = init;
 
@@ -10,11 +10,15 @@ function init () {
   const btnCheckWord = document.querySelector('#btnCheckWord');
   const el = document.getElementById('input');
 
+  const outAllWords = document.querySelector('.out_allWords');
+  const btnAllWords = document.querySelector('.btnAllWords');
+
   createNewText ();
   btnNewWord.addEventListener('click', createNewText);
   btnCheckWord.addEventListener('click', () => {
     el.classList.remove('hidden')
   })
+  btnAllWords.addEventListener('click', creatAllPhrases)
 
   function createNewText () {
     let enText = phraseGenerate();
@@ -22,6 +26,20 @@ function init () {
     el.value = enText;
     el.classList.add('hidden');
   }
+  function creatAllPhrases () {
+    for(let i = 0; i < allEngSchema.length; i++) {
+      allEngSchema[i]().forEach(item => {
+        let enPhrase = item;
+        let valuePhrase = `&quot; en &quot; : &quot;${enPhrase}&quot;`;
+        outAllWords.innerHTML += `
+        { <input type="text" readonly='readonly' value="${valuePhrase}" class="input-text" />,
+        "ru" : "${enPhrase}"
+        }</br>
+        `
+      })
+    }
+  }
+
 }
 
 
